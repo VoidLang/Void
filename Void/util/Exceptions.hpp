@@ -8,16 +8,16 @@
 
 namespace Void
 {
-	namespace Exceptions
-	{
-		/**
-		 * Get the name of the exception using exception code.
-		 */
-		STRING getName(unsigned int exception);
+    namespace Exceptions
+    {
+        /**
+         * Get the name of the exception using exception code.
+         */
+        STRING getName(unsigned int exception);
 
-		/**
-		 * Handle a windows-level exception.
-		 */
-		int handle(unsigned int exception, _EXCEPTION_POINTERS* pointers);
-	}
+        /**
+         * Handle a windows-level exception.
+         */
+        int handle(unsigned int exception, _EXCEPTION_POINTERS* pointers);
+    }
 }

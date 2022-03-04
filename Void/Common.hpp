@@ -36,7 +36,7 @@
 #define LIST std::vector<std::string>
 #define LIST_T std::vector
 #define CONTAINS(list, element) \
-	std::find(list.begin(), list.end(), element) != list.end()
+    std::find(list.begin(), list.end(), element) != list.end()
 
 #define MAP std::map
 
@@ -77,25 +77,25 @@
 #define FUNCTION std::function
 
 #define UPPERCASE(x) \
-	std::toupper(x, std::locale())
+    std::toupper(x, std::locale())
 
 #define LOWERCASE(x) \
-	std::tolower(x, std::locale())
+    std::tolower(x, std::locale())
 
 #define println(x) \
-	std::cout << x << '\n'
+    std::cout << x << '\n'
 
 #define print(x) \
-	std::cout << x
+    std::cout << x
 
 #define error(x) \
-	std::cout << x << '\n'; exit(-1);
+    std::cout << x << '\n'; exit(-1);
 
 //#define instanceof(obj, T) \
 //	T* x = dynamic_cast<T*>(obj)
 
 #define instanceof(obj, T) \
-	((bool) (dynamic_cast<T*>(obj) != nullptr))
+    ((bool) (dynamic_cast<T*>(obj) != nullptr))
 
 #define GET_LINE std::getline
 

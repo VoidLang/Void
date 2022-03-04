@@ -2,8 +2,8 @@
 
 namespace Void
 {
-	class Instruction
-	{
+    class Instruction
+    {
 
-	};
+    };
 }

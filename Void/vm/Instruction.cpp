@@ -2,59 +2,59 @@
 
 namespace Void
 {
-	bool operator==(STRING string, Instruction instruction)
-	{
-		static const char* const NAMES[]
-		{
-			"cdef",
-			"cmod",
-			"cext",
-			"cimpl",
-			"cbegin",
-			"cend",
+    bool operator==(STRING string, Instruction instruction)
+    {
+        static const char* const NAMES[]
+        {
+            "cdef",
+            "cmod",
+            "cext",
+            "cimpl",
+            "cbegin",
+            "cend",
 
-			"mdef",
-			"mmod",
-			"mreturn",
-			"mparam",
-			"mbegin",
-			"mend",
+            "mdef",
+            "mmod",
+            "mreturn",
+            "mparam",
+            "mbegin",
+            "mend",
 
-			"fdef",
-			"fmod",
-			"ftype",
-			"fbegin",
-			"fend",
+            "fdef",
+            "fmod",
+            "ftype",
+            "fbegin",
+            "fend",
 
-			"#link"
-		};
+            "#link"
+        };
 
-		static const char* const NAMES_UNMAPPED[]
-		{
-			"cdef",
-			"cmod",
-			"cext",
-			"cimpl",
-			"cbegin",
-			"cend",
+        static const char* const NAMES_UNMAPPED[]
+        {
+            "cdef",
+            "cmod",
+            "cext",
+            "cimpl",
+            "cbegin",
+            "cend",
 
-			"mdef",
-			"mmod",
-			"mreturn",
-			"mparam",
-			"mbegin",
-			"mend",
+            "mdef",
+            "mmod",
+            "mreturn",
+            "mparam",
+            "mbegin",
+            "mend",
 
-			"fdef",
-			"fmod",
-			"ftype",
-			"fbegin",
-			"fend",
+            "fdef",
+            "fmod",
+            "ftype",
+            "fbegin",
+            "fend",
 
-			"#link"
-		};
+            "#link"
+        };
 
-		return string == NAMES[static_cast<int>(instruction)]
-			|| string == NAMES_UNMAPPED[static_cast<int>(instruction)];
-	}
+        return string == NAMES[static_cast<int>(instruction)]
+            || string == NAMES_UNMAPPED[static_cast<int>(instruction)];
+    }
 }

@@ -5,69 +5,69 @@
 
 namespace Void
 {
-	/**
-	 * Determines a Void program which builds bytecode from raw inputs.
-	 */
-	class Program
-	{
-	private:
-		/**
-		 * Executable path.
-		 */
-		STRING path;
+    /**
+     * Determines a Void program which builds bytecode from raw inputs.
+     */
+    class Program
+    {
+    private:
+        /**
+         * Executable path.
+         */
+        STRING path;
 
-		/**
-		 * Program start arguments. 
-		 */
-		LIST arguments;
+        /**
+         * Program start arguments. 
+         */
+        LIST arguments;
 
-		/**
-		 * Program definitions.
-		 */
-		MAP<STRING, STRING> definitions;
+        /**
+         * Program definitions.
+         */
+        MAP<STRING, STRING> definitions;
 
-	public:
-		/**
-		 * Program description.
-		 */
-		Description description;
+    public:
+        /**
+         * Program description.
+         */
+        Description description;
 
-		/**
-		 * Initialize program.
-		 */
-		Program(STRING path, LIST arguments);
+        /**
+         * Initialize program.
+         */
+        Program(STRING path, LIST arguments);
 
-		/**
-		 * Build the bytecode.
-		 */
-		LIST build();
+        /**
+         * Build the bytecode.
+         */
+        LIST build();
 
-		/**
-		 * Validate executable path.
-		 */
-		bool validate();
+        /**
+         * Validate executable path.
+         */
+        bool validate();
 
-		/**
-		 * Determine if program has definition.
-		 */
-		bool hasDefinition(STRING definition);
+        /**
+         * Determine if program has definition.
+         */
+        bool hasDefinition(STRING definition);
 
-		/**
-		 * Set definition value.
-		 */
-		void setDefinition(STRING definition, STRING value);
+        /**
+         * Set definition value.
+         */
+        void setDefinition(STRING definition, STRING value);
 
-		/**
-		 * Get definition value.
-		 */
-		STRING getDefinition(STRING definition);
+        /**
+         * Get definition value.
+         */
+        STRING getDefinition(STRING definition);
 
-		// void 
+        // void 
 
-	private:
-		/**
-		 * Read file, build bytecode.
-		 */
-		void buildFile(STRING path, LIST& bytecode);
-	};
+    private:
+        /**
+         * Read file, build bytecode.
+         */
+        void buildFile(STRING path, LIST& bytecode);
+    };
 }

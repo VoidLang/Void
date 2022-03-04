@@ -2,27 +2,27 @@
 
 namespace Void
 {
-	/**
-	 * Determines if the program main is set.
-	 */
-	bool Description::hasProgramMain()
-	{
-		return programMain.has_value();
-	}
+    /**
+     * Determines if the program main is set.
+     */
+    bool Description::hasProgramMain()
+    {
+        return programMain.has_value();
+    }
 
-	/**
-	 * Get the program's main path.
-	 */
-	STRING Description::getProgramMain()
-	{
-		return *programMain;
-	}
+    /**
+     * Get the program's main path.
+     */
+    STRING Description::getProgramMain()
+    {
+        return *programMain;
+    }
 
-	/**
-	 * Sets the value of the program main.
-	 */
-	void Description::setProgramMain(STRING programMain)
-	{
-		this->programMain = programMain;
-	}
+    /**
+     * Sets the value of the program main.
+     */
+    void Description::setProgramMain(STRING programMain)
+    {
+        this->programMain = programMain;
+    }
 }

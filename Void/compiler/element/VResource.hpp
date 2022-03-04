@@ -4,11 +4,11 @@
 
 namespace Void
 {
-	/**
-	 * Represents a void resource to be built by the compiler.
-	 */
-	class VResource
-	{
+    /**
+     * Represents a void resource to be built by the compiler.
+     */
+    class VResource
+    {
 
-	};
+    };
 }

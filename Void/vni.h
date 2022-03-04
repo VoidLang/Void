@@ -22,26 +22,26 @@ class VObject
 class VNIParams
 {
 public:
-	ANY* elements;
-	int size;
+    ANY* elements;
+    int size;
 
-	VNIParams(ANY* elements, int size) : elements(elements), size(size) {}
+    VNIParams(ANY* elements, int size) : elements(elements), size(size) {}
 
-	template <typename T>
-	T get(int index)
-	{
-		return CAST<T>(elements[index]);
-	}
+    template <typename T>
+    T get(int index)
+    {
+        return CAST<T>(elements[index]);
+    }
 
-	ANY raw(int index)
-	{
-		return elements[index];
-	}
+    ANY raw(int index)
+    {
+        return elements[index];
+    }
 
-	const TYPE& type(int index)
-	{
-		return elements[index].type();
-	}
+    const TYPE& type(int index)
+    {
+        return elements[index].type();
+    }
 };
 
 

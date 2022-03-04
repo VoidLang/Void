@@ -4,26 +4,26 @@
 
 namespace Void
 {
-	/**
-	 * Represents a wrapper for the project settings xml file.
-	 */
-	class Project
-	{
-	private:
-		/**
-		 * Xml file path.
-		 */
-		STRING path;
+    /**
+     * Represents a wrapper for the project settings xml file.
+     */
+    class Project
+    {
+    private:
+        /**
+         * Xml file path.
+         */
+        STRING path;
 
-	public:
-		/**
-		 * Initialize project xml.
-		 */
-		Project(STRING path);
+    public:
+        /**
+         * Initialize project xml.
+         */
+        Project(STRING path);
 
-		/**
-		 * Load xml file.
-		 */
-		bool load();
-	};
+        /**
+         * Load xml file.
+         */
+        bool load();
+    };
 }

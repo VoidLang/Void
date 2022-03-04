@@ -16,12 +16,12 @@ using namespace Void;
  *  Welcome to the Void.
  *  I am Ábel (aka AdvancedAntiSkid) the founder of Void.
  *  If you have any questions feel free to join my discord.
- *	  https://bluenight.net
+ *    https://bluenight.net
  * 
  * What is Void?
  *  Void is a dynamic, stack-based c++ virtual machine and compiler that I started making 
- *	for educational purposes. In my free time I always aim towards learning as much as possible, 
- *	and once I thought how cool it would be to have my own programming language. Well here it is.
+ *  for educational purposes. In my free time I always aim towards learning as much as possible, 
+ *  and once I thought how cool it would be to have my own programming language. Well here it is.
  * Why Void?
  *  Void's vision is to provide an easy, understandable programming language for both 
  *	educational and production purposes.

@@ -1,6 +1,6 @@
 # The Void Programming Language 
 Void is an open-source virtual-machine-based programming language written in C++ <br>
-**Note: Void is still under development and is not yet ready for production use.**<br>
+**Note: Void is still under development and is not ready yet for production use.**<br>
 Feel free to [report any bugs](https://github.com/VoidLang/Void/issues) you've encountered.
 
 ## Features
@@ -40,10 +40,13 @@ void -run <void executable> [program arguments]
 ## Documentation
 For further information you may read the following pages.
 - [Syntax](Syntax.md)
-- [Types](Type.md)
+- [Types](Types.md)
 - [Modifiers](Modifiers.md)
 - [Headers](Headers.md)
 - [Naming conventions](Conventions.md)
+- [Bytecode](Bytecode.md)
+- [Unsafe actions](Unsafe.md)
+- [External libraries](Libraries.md)
 
 ## Getting help
 If you need help, feel free to join our official [discord server](https://discord.gg/HdgnHqqGAW).

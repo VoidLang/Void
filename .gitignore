@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio Files
+/.vs
+*.tlog
+*.idb
+*.log
+*.pdb
+*.recipe
+*.filters
+*.user
+*.vcxproj

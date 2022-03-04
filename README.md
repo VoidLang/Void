@@ -1,11 +1,21 @@
 # The Void Programming Language 
-Void is an open-source virtual-machine-based programming language written in C++ <br>
-**Note: Void is still under development and is not ready yet for production use.**<br>
-Feel free to [report any bugs](https://github.com/VoidLang/Void/issues) you've encountered.
 
-## Features
-Void is a type safe programming language that compiles to bytecode.<br>
-There is no need to directly include your dependencies' source code, you can just <br>include the header files Void can generate for you.
+## What is Void?
+Void is a dynamic, stack-based c++ virtual machine and compiler that I started making<br>
+for educational purposes. In my free time I always aim towards learning as much as possible,<br>
+and once I thought how cool it would be to have my own programming language. Well here it is.
+
+## Why Void?
+Void's vision is to provide an easy, understandable programming language for both<br>
+educational and production purposes.
+
+## How stable is Void?
+According to my testings Void should be pretty stable, but keep in mind that I consider myself<br>
+as a c++ beginner, therefore I'm positive most parts of Void could be written in so much easier ways.<br>
+If you have encountered any bug smake sure to report them on my discord.
+
+## Can I contribute?
+If you are interested in contributing to the Void project, please read the [contribution](Contribution.md) page first.
 
 ## Get started
 
@@ -50,6 +60,3 @@ For further information you may read the following pages.
 
 ## Getting help
 If you need help, feel free to join our official [discord server](https://discord.gg/HdgnHqqGAW).
-
-## Contribution
-If you are interested in contributing to the Void project, please read through the [contribution](Contribution.md) page.

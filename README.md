@@ -12,7 +12,7 @@ educational and production purposes.
 ## How stable is Void?
 According to my testings Void should be pretty stable, but keep in mind that I consider myself<br>
 as a c++ beginner, therefore I'm positive most parts of Void could be written in so much easier ways.<br>
-If you have encountered any bug smake sure to report them on my discord.
+If you have encountered any bug smake sure to report them on my [discord server](https://discord.gg/HdgnHqqGAW).
 
 ## Can I contribute?
 If you are interested in contributing to the Void project, please read the [contribution](Contribution.md) page first.

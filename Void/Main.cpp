@@ -45,14 +45,14 @@ const STRING VERSION = "1.0.1-BETA";
  */
 void sendHelp()
 {
-	println("Void v" << VERSION);
-	println("Usage: void [options] [args...]" << '\n');
-	println("Arguments following the -run <file> are passed as the arguments to the main method." << '\n');
-	println("Where options include:" << '\n');
-	println("	-run <executable file>		Execute a compiled vertex program.");
-	println("	-compile <project folder>	Compile vertex source files.");
-	println("	-header <source file>		Create a c++ header for the given source file.");
-	println("");
+    println("Void v" << VERSION);
+    println("Usage: void [options] [args...]" << '\n');
+    println("Arguments following the -run <file> are passed as the arguments to the main method." << '\n');
+    println("Where options include:" << '\n');
+    println("	-run <executable file>		Execute a compiled vertex program.");
+    println("	-compile <project folder>	Compile vertex source files.");
+    println("	-header <source file>		Create a c++ header for the given source file.");
+    println("");
 }
 
 /**
@@ -61,335 +61,335 @@ void sendHelp()
  */
 void start(int argc, char** argv)
 {
-	// send help message if there are not enough arguments
+    // send help message if there are not enough arguments
 
-	if (argc < 2)
-	{
-		sendHelp();
-		return;
-	}
+    if (argc < 2)
+    {
+        sendHelp();
+        return;
+    }
 
-	// handle parameters
+    // handle parameters
 
-	Options options(argc, argv);
+    Options options(argc, argv);
 
-	// launch compiled program
+    // launch compiled program
 
-	if (options.has("run"))
-	{
-		// get the executable's path
+    if (options.has("run"))
+    {
+        // get the executable's path
 
-		STRING path = options.get("run");
+        STRING path = options.get("run");
 
-		// get program start arguments
+        // get program start arguments
 
-		LIST arguments = options.arguments;
-		STRING strArgs = Strings::join(arguments, ", ");
+        LIST arguments = options.arguments;
+        STRING strArgs = Strings::join(arguments, ", ");
 
-		println("Running " << path << " using args [" << strArgs << "]" << '\n');
+        println("Running " << path << " using args [" << strArgs << "]" << '\n');
 
-		// create program
+        // create program
 
-		Program program(path, arguments);
+        Program program(path, arguments);
 
-		// validate path
+        // validate path
 
-		if (!program.validate()) 
-		{
-			println("Given path must be a folder or a Void executable.");
-			return;
-		}
+        if (!program.validate()) 
+        {
+            println("Given path must be a folder or a Void executable.");
+            return;
+        }
 
-		// build program, make bytecode
+        // build program, make bytecode
 
-		LIST bytecode = program.build();
+        LIST bytecode = program.build();
 
-		// create class factory
+        // create class factory
 
-		Factory factory(options);
+        Factory factory(options);
 
-		// create virtual machine
+        // create virtual machine
 
-		VirtualMachine vm(factory, program, options);
-		vm.load(bytecode);
+        VirtualMachine vm(factory, program, options);
+        vm.load(bytecode);
 
-		// debug virtual machine
+        // debug virtual machine
 
-		if (options.has("XVMDebug"))
-		{
-			vm.debug();
-		}
-		
-		// include void builtins
+        if (options.has("XVMDebug"))
+        {
+            vm.debug();
+        }
+        
+        // include void builtins
 
-		include(&factory);
+        include(&factory);
 
-		Description description = program.description;
+        Description description = program.description;
 
-		// check if the main path is specified
+        // check if the main path is specified
 
-		if (!description.hasProgramMain())
-		{
-			println("Unspecified main path.");
-			return;
-		}
+        if (!description.hasProgramMain())
+        {
+            println("Unspecified main path.");
+            return;
+        }
 
-		// get program main
+        // get program main
 
-		STRING programMain = description.getProgramMain();
-			
-		// check if main path is empty
+        STRING programMain = description.getProgramMain();
+            
+        // check if main path is empty
 
-		if (programMain.empty())
-		{
-			println("Invalid main path '" << programMain << "'. Ignoring it.");
-			return;
-		}
+        if (programMain.empty())
+        {
+            println("Invalid main path '" << programMain << "'. Ignoring it.");
+            return;
+        }
 
-		// get the main class
+        // get the main class
 
-		Class* mainClass = factory.getClass(programMain);
+        Class* mainClass = factory.getClass(programMain);
 
-		// check if main class is missing
+        // check if main class is missing
 
-		if (mainClass == nullptr)
-		{
-			println("Missing main class: '" << programMain << "'.");
-			return;
-		}
+        if (mainClass == nullptr)
+        {
+            println("Missing main class: '" << programMain << "'.");
+            return;
+        }
 
-		// create the required parameters for the main method
+        // create the required parameters for the main method
 
-		LIST parameters;
-		parameters.push_back("[Lvoid.lang.String");
+        LIST parameters;
+        parameters.push_back("[Lvoid.lang.String");
 
-		// get the main method
+        // get the main method
 
-		Method* mainMethod = mainClass->getMethod("main", parameters);
-		
-		// check if main method is missing
+        Method* mainMethod = mainClass->getMethod("main", parameters);
+        
+        // check if main method is missing
 
-		if (mainMethod == nullptr)
-		{
-			println("Missing main method: '" << programMain << ".main(" << Strings::join(parameters, " ") << ")V'.");
-			return;
-		}
+        if (mainMethod == nullptr)
+        {
+            println("Missing main method: '" << programMain << ".main(" << Strings::join(parameters, " ") << ")V'.");
+            return;
+        }
 
-		// check if main method is static
+        // check if main method is static
 
-		if (!mainMethod->hasModifier(Modifier::STATIC))
-		{
-			println("Non-static main method: '" << programMain << ".main(" << Strings::join(parameters, " ") << ")V'.");
-			return;
-		}
+        if (!mainMethod->hasModifier(Modifier::STATIC))
+        {
+            println("Non-static main method: '" << programMain << ".main(" << Strings::join(parameters, " ") << ")V'.");
+            return;
+        }
 
-		// create the heap (main stack)
+        // create the heap (main stack)
 
-		Stack* heap = new Stack(nullptr, "Heap");
+        Stack* heap = new Stack(nullptr, "Heap");
 
-		// call static constructors and initialize static fields
+        // call static constructors and initialize static fields
 
-		factory.initialize(heap);
+        factory.initialize(heap);
 
-		// get the string class
+        // get the string class
 
-		Class* clazz = factory.getClass("void.lang.String");
+        Class* clazz = factory.getClass("void.lang.String");
 
-		// create start arguments array
-	
-		Array<Instance*>* startArgs = new Array<Instance*>(&factory, clazz, heap, "L" + clazz->name, (int) arguments.size());
-			
-		// fill up array
+        // create start arguments array
+    
+        Array<Instance*>* startArgs = new Array<Instance*>(&factory, clazz, heap, "L" + clazz->name, (int) arguments.size());
+            
+        // fill up array
 
-		for (int i = 0; i < arguments.size(); i++)
-		{
-			startArgs->set(i, new String(&factory, heap, arguments[i]));
-		}
+        for (int i = 0; i < arguments.size(); i++)
+        {
+            startArgs->set(i, new String(&factory, heap, arguments[i]));
+        }
 
-		// push the final start arguments onto the stack
+        // push the final start arguments onto the stack
 
-		heap->instanceStack.push(startArgs);
+        heap->instanceStack.push(startArgs);
 
-		// call program entry point
+        // call program entry point
 
-		mainMethod->invoke(&factory, heap, nullptr, nullptr);
-	}
+        mainMethod->invoke(&factory, heap, nullptr, nullptr);
+    }
 
-	// compile program sources
+    // compile program sources
 
-	else if (options.has("compile"))
-	{
-		// check for correct command usage
+    else if (options.has("compile"))
+    {
+        // check for correct command usage
 
-		if (!options.has("out"))
-		{
-			println("Usage: void -compile <project folder> -out <output file path>");
-			return;
-		}
+        if (!options.has("out"))
+        {
+            println("Usage: void -compile <project folder> -out <output file path>");
+            return;
+        }
 
-		STRING inputDir = options.get("compile");
-		STRING outputFile = options.get("out");
+        STRING inputDir = options.get("compile");
+        STRING outputFile = options.get("out");
 
-		println("compiling " << inputDir << " to " << outputFile);
+        println("compiling " << inputDir << " to " << outputFile);
 
-		// create compiler
+        // create compiler
 
-		Compiler compiler(inputDir, outputFile);
+        Compiler compiler(inputDir, outputFile);
 
-		// validate compiler
+        // validate compiler
 
-		if (!compiler.validate())
-		{
-			return;
-		}
+        if (!compiler.validate())
+        {
+            return;
+        }
 
-		// create project settings
+        // create project settings
 
-		Project project(compiler.projectFile);
+        Project project(compiler.projectFile);
 
-		if (!project.load())
-		{
-			println("Unable to load project file");
-			return;
-		}
+        if (!project.load())
+        {
+            println("Unable to load project file");
+            return;
+        }
 
-		// read source files
+        // read source files
 
-		VProgram program;
-		compiler.readSources(program);
+        VProgram program;
+        compiler.readSources(program);
 
-		// build the program
+        // build the program
 
-		LIST bytecode = program.build();
+        LIST bytecode = program.build();
 
-		// write the result to file
+        // write the result to file
 
-		FILE_OUTPUT_STREAM stream;
-		stream.open(outputFile);
+        FILE_OUTPUT_STREAM stream;
+        stream.open(outputFile);
 
-		for (STRING line : bytecode)
-		{
-			stream << line << '\n';
-		}
+        for (STRING line : bytecode)
+        {
+            stream << line << '\n';
+        }
 
-		stream.close();
-	}
+        stream.close();
+    }
 
-	// create header file for class
+    // create header file for class
 
-	else if (options.has("header"))
-	{
-		STRING path = options.get("header");
+    else if (options.has("header"))
+    {
+        STRING path = options.get("header");
 
-		if (!EXISTS(path) || IS_DIRECTORY(path))
-		{
-			println("Given path must be a Void executable.");
-			return;
-		}
+        if (!EXISTS(path) || IS_DIRECTORY(path))
+        {
+            println("Given path must be a Void executable.");
+            return;
+        }
 
-		// TODO check if file is .v
+        // TODO check if file is .v
 
-		// create program
+        // create program
 
-		Program program(path, LIST());
+        Program program(path, LIST());
 
-		// build program, make bytecode
+        // build program, make bytecode
 
-		LIST bytecode = program.build();
+        LIST bytecode = program.build();
 
-		// create class factory
+        // create class factory
 
-		Factory factory(options);
+        Factory factory(options);
 
-		// create virtual machine
+        // create virtual machine
 
-		VirtualMachine vm(factory, program, options);
-		vm.load(bytecode);
+        VirtualMachine vm(factory, program, options);
+        vm.load(bytecode);
 
-		// debug virtual machine
+        // debug virtual machine
 
-		if (options.has("XVMDebug"))
-		{
-			vm.debug();
-		}
+        if (options.has("XVMDebug"))
+        {
+            vm.debug();
+        }
 
-		// set header file path
+        // set header file path
 
-		PATH filePath = path;
-		STRING headerPath = filePath.parent_path().generic_string() + Files::SEPARATOR + filePath.stem().generic_string() + ".hpp";
+        PATH filePath = path;
+        STRING headerPath = filePath.parent_path().generic_string() + Files::SEPARATOR + filePath.stem().generic_string() + ".hpp";
 
-		// write header data
-		
-		FILE_OUTPUT_STREAM stream;
-		stream.open(headerPath);
+        // write header data
+        
+        FILE_OUTPUT_STREAM stream;
+        stream.open(headerPath);
 
-		stream << "/**" << '\n';
-		stream << " * DO NOT EDIT THIS FILE - it is machine generated" << '\n';
-		stream << " */ " << "\n\n";
+        stream << "/**" << '\n';
+        stream << " * DO NOT EDIT THIS FILE - it is machine generated" << '\n';
+        stream << " */ " << "\n\n";
 
-		stream << "#include \"vni.h\"" << "\n\n";
-		
-		for (Class* clazz : factory.classes)
-		{
-			// get the native methods of the class
+        stream << "#include \"vni.h\"" << "\n\n";
+        
+        for (Class* clazz : factory.classes)
+        {
+            // get the native methods of the class
 
-			LIST_T<Method*> methods = clazz->nativeMethods();
+            LIST_T<Method*> methods = clazz->nativeMethods();
 
-			// do not process class if it does not have any native methods
+            // do not process class if it does not have any native methods
 
-			if (methods.empty())
-			{
-				continue;
-			}
+            if (methods.empty())
+            {
+                continue;
+            }
 
-			stream << "// Methods for class " << clazz->name << "\n\n";
+            stream << "// Methods for class " << clazz->name << "\n\n";
 
-			STRING path = clazz->nativePath();
+            STRING path = clazz->nativePath();
 
-			stream << "#ifndef " << path << '\n';
-			stream << "#define " << path << '\n';
-			stream << "#ifdef __cplusplus" << '\n';
-			stream << "extern \"C\" {" << '\n';
-			stream << "#endif" << "\n\n";
+            stream << "#ifndef " << path << '\n';
+            stream << "#define " << path << '\n';
+            stream << "#ifdef __cplusplus" << '\n';
+            stream << "extern \"C\" {" << '\n';
+            stream << "#endif" << "\n\n";
 
-			for (Method* method : methods)
-			{
-				stream << '\t' << "/**" << '\n';
-				stream << '\t' << " * Class:      " << clazz->name << '\n';
-				stream << '\t' << " * Method:     " << method->name << '\n';
-				stream << '\t' << " * Parameters: " << '(' << Strings::join(method->parameters, ", ") << ')' << '\n';
-				stream << '\t' << " */" << '\n';
+            for (Method* method : methods)
+            {
+                stream << '\t' << "/**" << '\n';
+                stream << '\t' << " * Class:      " << clazz->name << '\n';
+                stream << '\t' << " * Method:     " << method->name << '\n';
+                stream << '\t' << " * Parameters: " << '(' << Strings::join(method->parameters, ", ") << ')' << '\n';
+                stream << '\t' << " */" << '\n';
 
-				stream << '\t' << "VNIEXPORT " << method->nativeReturnType() << " VNICALL " << method->nativePath() << '\n';
-				// stream << '\t' << "(VNIEnv* env, VNIParams* params);" << "\n\n";
-				stream << '\t' << "(VNIEnv* env, ";
+                stream << '\t' << "VNIEXPORT " << method->nativeReturnType() << " VNICALL " << method->nativePath() << '\n';
+                // stream << '\t' << "(VNIEnv* env, VNIParams* params);" << "\n\n";
+                stream << '\t' << "(VNIEnv* env, ";
 
-				if (!method->hasModifier(Modifier::STATIC))
-				{
-					stream << "VObject* self, ";
-				}
+                if (!method->hasModifier(Modifier::STATIC))
+                {
+                    stream << "VObject* self, ";
+                }
 
-				stream << "VNIParams* params);" << "\n\n";
-			}
+                stream << "VNIParams* params);" << "\n\n";
+            }
 
-			stream << "#ifdef __cplusplus" << '\n';
-			stream << "}" << '\n';
-			stream << "#endif" << '\n';
-			stream << "#endif " << path << "\n\n";
-		}
+            stream << "#ifdef __cplusplus" << '\n';
+            stream << "}" << '\n';
+            stream << "#endif" << '\n';
+            stream << "#endif " << path << "\n\n";
+        }
 
-		stream.close();
-	}
+        stream.close();
+    }
 
-	// invalid arguments -> send help message
+    // invalid arguments -> send help message
 
-	else
-	{
-		sendHelp();
-		return;
-	}
+    else
+    {
+        sendHelp();
+        return;
+    }
 
-	println("\nProgram executed successfully.");
+    println("\nProgram executed successfully.");
 }
 
 /**
@@ -397,17 +397,17 @@ void start(int argc, char** argv)
  */
 int main(int argc, char** argv)
 {
-	// What the...?
-	// Well, there should probably be a better way of doing this, 
-	// but gotta catch those windows-level errors...
+    // What the...?
+    // Well, there should probably be a better way of doing this, 
+    // but gotta catch those windows-level errors...
 
-	__try
-	{
-		start(argc, argv);
-	}
-	__except (Exceptions::handle(GetExceptionCode(), GetExceptionInformation()))
-	{
-		// no need to do anything in here because the exception is handled in Exceptions::handle
-	}
-	return 0;
+    __try
+    {
+        start(argc, argv);
+    }
+    __except (Exceptions::handle(GetExceptionCode(), GetExceptionInformation()))
+    {
+        // no need to do anything in here because the exception is handled in Exceptions::handle
+    }
+    return 0;
 }

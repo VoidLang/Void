@@ -3,7 +3,7 @@
 namespace Void
 {
     /**
-     * Initalize lexer.
+     * Initialize lexer.
      */
     Lexer::Lexer(STRING data)
     {

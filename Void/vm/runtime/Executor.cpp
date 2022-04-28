@@ -23,6 +23,12 @@ namespace Void
             STRING command = args[0];
             char c = command[0];
 
+            // skip non-command lines
+            //if (c == '#' || c == ':' || c == ';')
+            //{
+            //    continue;
+            //}
+
             // prefix check to reduce tons of if-else checking
 
             if (c == 'i')
@@ -108,6 +114,198 @@ namespace Void
             else if (c == 'z')
             {
                 handleBooleanManagement(command, args, stack, storage, executable);
+            }
+
+            // handle long management
+
+            else if (c == 'l')
+            {
+                // push an integer to the stack
+
+                if (command == "lpush")
+                {
+                    stack->longStack.push(stol(args[1]));
+                }
+
+                // load an integer from the given storage unit to the stack
+
+                else if (command == "lload")
+                {
+                    int index;
+
+                    try
+                    {
+                        index = stoi(args[1]);
+                    }
+                    catch (...)
+                    {
+                        index = executable->getLinker(args[1]);
+                    }
+
+                    LONG value = storage->longStorage.get(index);
+                    stack->longStack.push(value);
+                }
+
+                // store an integer in the given storage unit
+
+                else if (command == "lstore")
+                {
+                    int index;
+
+                    try
+                    {
+                        index = stoi(args[1]);
+                    }
+                    catch (...)
+                    {
+                        index = executable->getLinker(args[1]);
+                    }
+
+                    LONG value = stack->longStack.pull();
+                    storage->longStorage.set(index, value);
+                }
+
+                // take two longs from the stack, add (a + b) back to it
+
+                else if (command == "ladd")
+                {
+                    stack->longStack.push(stack->longStack.pull() + stack->longStack.pull());
+                }
+
+                // take two longs from the stack, add (a - b) back to it
+
+                else if (command == "lrem")
+                {
+                    LONG a = stack->longStack.pull();
+                    LONG b = stack->longStack.pull();
+                    stack->longStack.push(a - b);
+                }
+
+                // take two longs from the stack, add (a * b) back to it
+
+                else if (command == "lmul")
+                {
+                    stack->longStack.push(stack->longStack.pull() * stack->longStack.pull());
+                }
+
+                // take two longs from the stack, add (a * b) back to it
+
+                else if (command == "ldiv")
+                {
+                    LONG a = stack->longStack.pull();
+                    LONG b = stack->longStack.pull();
+                    stack->longStack.push(a / b);
+                }
+
+                // take two longs from the stack, add (a % b) back to it
+
+                else if (command == "lmod")
+                {
+                    LONG a = stack->longStack.pull();
+                    LONG b = stack->longStack.pull();
+                    stack->longStack.push(a % b);
+                }
+
+                // take a long from the stack, add (a + 1) back to it
+
+                else if (command == "linc")
+                {
+                    LONG value = stack->longStack.pull();
+                    stack->longStack.push(value + 1);
+                }
+
+                // take a long from the stack, add (a - 1) back to it
+
+                else if (command == "ldecr")
+                {
+                    LONG value = stack->longStack.pull();
+                    stack->longStack.push(value - 1);
+                }
+
+                // take a long from the stack, add (-a) back to it
+
+                else if (command == "lneg")
+                {
+                    stack->longStack.push(-stack->longStack.pull());
+                }
+
+                // move a long from the stack to the call result
+
+                else if (command == "lreturn")
+                {
+                    LONG value = stack->longStack.pull();
+                    result = value;
+                    cursor = bytecode.size(); // move cursor to the end so the executor loop breaks
+                }
+
+                // pull a long from the stack
+
+                else if (command == "lpop")
+                {
+                    stack->longStack.pull();
+                }
+
+                // duplicate the long on the stack top
+
+                else if (command == "ldup")
+                {
+                    stack->longStack.append(stack->longStack.get());
+                }
+
+                // duplicate the long on the stack top X times
+
+                else if (command == "ldup_x")
+                {
+                    LONG value = stack->longStack.get();
+                    int amount = stoi(args[1]);
+
+                    for (int i = 0; i < amount; i++)
+                    {
+                        stack->longStack.append(value);
+                    }
+                }
+
+                // debug the first stack unit
+
+                else if (command == "lprint")
+                {
+                    print(stack->longStack.pull());
+                }
+
+                // debug the first stack unit and print a new line
+
+                else if (command == "lprintln")
+                {
+                    println(stack->longStack.pull());
+                }
+
+                // debug the first stack unit whils keeping the value in the stack
+
+                else if (command == "ldebug")
+                {
+                    print(stack->longStack.get());
+                }
+
+                // debug the first stack unit whils keeping the value in the stack and print a new line
+
+                else if (command == "ldebugln")
+                {
+                    println(stack->longStack.get());
+                }
+
+                // debug the current long stack size
+
+                else if (command == "lstacksize")
+                {
+                    stack->intStack.push(stack->longStack.size());
+                }
+            }
+
+            // handle current time
+
+            else if (command == "currentTime")
+            {
+                stack->longStack.push(currentTimeMillis());
             }
 
             // handle exception throwing
@@ -1099,6 +1297,13 @@ namespace Void
         else if (command == "nullptr")
         {
             stack->instanceStack.push(nullptr);
+        }
+
+        // TODO 
+
+        else if (command == "nanoTime")
+        {
+
         }
     }
 

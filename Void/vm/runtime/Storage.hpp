@@ -24,6 +24,11 @@ namespace Void
         StorageElement<float> floatStorage;
 
         /**
+         * A long holding sub storage. 
+         */
+        StorageElement<LONG> longStorage;
+
+        /**
          * A boolean holding sub storage.
          */
         StorageElement<bool> booleanStorage;

@@ -116,7 +116,7 @@ namespace Void
     {
         // create data holders
 
-        Stack* stack = new Stack(stackSrc, this->clazz->name + "." + this->name + "(" + Strings::join(parameters, ", ") + ")");
+        Stack* stack = new Stack(stackSrc, this->clazz->name + "." + this->name + "(" + Strings::join(parameters, ", ") + ")" + returnType);
         Storage* storage = new Storage();
 
         // create storage indexes

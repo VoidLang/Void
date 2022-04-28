@@ -5,6 +5,8 @@
 #include <sstream>
 #include <iomanip>
 
+#include <chrono>
+
 #include <vector>
 #include <map>
 
@@ -56,6 +58,8 @@
 
 #define SIZE_T size_t
 
+#define LONG __int64
+
 #define ANY std::any
 
 #define ANY_CAST std::any_cast
@@ -106,3 +110,10 @@
 #define OUTPUT_STREAM std::ostream
 
 #define INDENT std::setw
+
+#define MILLISECONDS std::chrono::milliseconds
+#define DURATION_CAST std::chrono::duration_cast
+#define SYSTEM_CLOCK std::chrono::system_clock
+
+#define currentTimeMillis() \
+    (DURATION_CAST<MILLISECONDS>(SYSTEM_CLOCK::now().time_since_epoch()).count())

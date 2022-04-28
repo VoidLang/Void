@@ -392,6 +392,39 @@ void start(int argc, char** argv)
     println("\nProgram executed successfully.");
 }
 
+template <typename T>
+
+class MultiArray
+{
+public:
+    int nDimensions;
+    int* dimensions;
+    T** data;
+
+public:
+    MultiArray(int nDimensions, int* dimensions)
+    {
+        this->nDimensions = nDimensions;
+        this->dimensions = dimensions;
+        this->data = new T*[nDimensions];
+        for (int i = 0; i < nDimensions; i++)
+        {
+            data[i] = new T[dimensions[i]];
+        }
+    }
+};
+
+
+int main_(int argc, char** argv) 
+{
+    MultiArray<int>* arr = new MultiArray<int>(3, new int[] {1, 5, 7});
+
+    println(arr->nDimensions);
+    println(arr->dimensions[2]);
+
+    return 0;
+}
+
 /**
  * Program entry point.
  */

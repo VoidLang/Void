@@ -17,7 +17,7 @@ namespace Void
          * Parent stack.
          */
         Stack* parent;
-    
+
     public:
         /**
          * An int holding sub stack.
@@ -28,6 +28,11 @@ namespace Void
          * A float holding sub stack.
          */
         StackElement<float> floatStack;
+
+        /**
+         * A long holding sub stack.
+         */
+        StackElement<LONG> longStack;
 
         /**
          * A boolean holding sub stack.

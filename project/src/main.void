@@ -1,5 +1,0 @@
-class Fos {
-    <T> T get() {
-        
-    }
-}

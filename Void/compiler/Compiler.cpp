@@ -106,7 +106,7 @@ namespace Void
 
         for (Token token = lexer.next() ;; token = lexer.next())
         {
-            // println(INDENT(12) << token);
+            println(INDENT(12) << token);
 
             tokens.push_back(token);
 

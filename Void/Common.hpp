@@ -24,6 +24,9 @@
 
 #include <functional>
 
+#include <ctime>
+#include <cstdlib>
+
 #include <tchar.h>
 #include <system_error>
 
@@ -112,8 +115,24 @@
 #define INDENT std::setw
 
 #define MILLISECONDS std::chrono::milliseconds
+#define NANOSECONDS std::chrono::nanoseconds
 #define DURATION_CAST std::chrono::duration_cast
 #define SYSTEM_CLOCK std::chrono::system_clock
 
 #define currentTimeMillis() \
     (DURATION_CAST<MILLISECONDS>(SYSTEM_CLOCK::now().time_since_epoch()).count())
+
+#define nanoTime() \
+    (DURATION_CAST<NANOSECONDS>(SYSTEM_CLOCK::now().time_since_epoch()).count())
+
+// this will generate a number from 0.0 to 1.0, inclusive
+#define random() \
+    (static_cast <float> (rand()) / static_cast <float> (RAND_MAX))
+
+// this will generate a number from 0.0 to some arbitrary float, max
+#define randomTo(max) \
+    (static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/max)))
+
+// this will generate a number from some arbitrary min to some arbitrary max
+#define rangomRange(min, max) \
+    (min + static_cast <float> (rand()) / ( static_cast <float> (RAND_MAX/(max-min))))

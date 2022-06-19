@@ -25,7 +25,7 @@ namespace Void
     /**
      * Handle float management instructions.
      */
-    void handleFloatManagement(STRING command, LIST args, Stack* stack, Storage* storage, Executable* executable);
+    void handleFloatManagement(STRING command, LIST args, ANY& result, SIZE_T& cursor, SIZE_T length, Stack* stack, Storage* storage, Executable* executable);
 
     /**
      * Handle boolean management instructions.

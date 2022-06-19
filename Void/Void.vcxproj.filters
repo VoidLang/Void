@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Common.hpp" />
+    <ClInclude Include="vni.h" />
+    <ClInclude Include="util\Exceptions.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Files.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Lists.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Options.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Strings.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\Description.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\Factory.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\Instruction.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\Modifier.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\Program.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\VirtualMachine.hpp">
+      <Filter>vm</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\element\Class.hpp">
+      <Filter>vm\element</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\element\Executable.hpp">
+      <Filter>vm\element</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\element\Field.hpp">
+      <Filter>vm\element</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\element\Method.hpp">
+      <Filter>vm\element</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\runtime\Executor.hpp">
+      <Filter>vm\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\runtime\Stack.hpp">
+      <Filter>vm\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\runtime\StackElement.hpp">
+      <Filter>vm\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\runtime\Storage.hpp">
+      <Filter>vm\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\runtime\StorageElement.hpp">
+      <Filter>vm\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="vm\runtime\Value.hpp">
+      <Filter>vm\runtime</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\Compiler.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\Lexer.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\NodeParser.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\Parser.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\Project.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\Token.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\TokenHandler.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\VProgram.hpp">
+      <Filter>compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\element\VClass.hpp">
+      <Filter>compiler\element</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\element\VMethod.hpp">
+      <Filter>compiler\element</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\element\VResource.hpp">
+      <Filter>compiler\element</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\instruction\Body.hpp">
+      <Filter>compiler\instruction</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\instruction\Instructions.hpp">
+      <Filter>compiler\instruction</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="util\Exceptions.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Files.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Lists.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Options.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Strings.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\Description.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\Factory.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\Instruction.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\Modifier.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\Program.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\VirtualMachine.cpp">
+      <Filter>vm</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\element\Class.cpp">
+      <Filter>vm\element</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\element\Executable.cpp">
+      <Filter>vm\element</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\element\Field.cpp">
+      <Filter>vm\element</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\element\Method.cpp">
+      <Filter>vm\element</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\runtime\Executor.cpp">
+      <Filter>vm\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\runtime\Stack.cpp">
+      <Filter>vm\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\runtime\StackElement.cpp">
+      <Filter>vm\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\runtime\StorageElement.cpp">
+      <Filter>vm\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="vm\runtime\Value.cpp">
+      <Filter>vm\runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\Compiler.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\Lexer.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\Parser.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\Project.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\Token.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\TokenHandler.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\VProgram.cpp">
+      <Filter>compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\element\VClass.cpp">
+      <Filter>compiler\element</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\element\VMethod.cpp">
+      <Filter>compiler\element</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\instruction\Body.cpp">
+      <Filter>compiler\instruction</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\instruction\Instructions.cpp">
+      <Filter>compiler\instruction</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="compiler">
+      <UniqueIdentifier>{f73cf9b5-3f09-4d1a-bbad-4e9a92d1010e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{76d8a628-cca5-460f-b966-6ac96500b88e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vm">
+      <UniqueIdentifier>{fd3e5280-3949-46ba-8f79-35b0ee9274a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vm\element">
+      <UniqueIdentifier>{b053ce86-9057-4158-89e0-70f366d8d371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vm\runtime">
+      <UniqueIdentifier>{a166f8e1-ff30-47d2-ab7b-4c483780810b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compiler\element">
+      <UniqueIdentifier>{c526bed8-d741-4619-a180-8294d21b35fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compiler\instruction">
+      <UniqueIdentifier>{008d8337-cf83-4285-b1fc-7fceb1b05cdc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

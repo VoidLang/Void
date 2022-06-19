@@ -212,7 +212,11 @@ void start(int argc, char** argv)
 
         // call program entry point
 
+        auto begin = currentTimeMillis();
+
         mainMethod->invoke(&factory, heap, nullptr, nullptr);
+
+        println("Processing lasted " << currentTimeMillis() - begin << "ms");
     }
 
     // compile program sources
@@ -417,7 +421,7 @@ public:
 
 int main_(int argc, char** argv) 
 {
-    MultiArray<int>* arr = new MultiArray<int>(3, new int[] {1, 5, 7});
+    MultiArray<int>* arr = new MultiArray<int>(3, new int[3] {1, 5, 7});
 
     println(arr->nDimensions);
     println(arr->dimensions[2]);
@@ -430,10 +434,12 @@ int main_(int argc, char** argv)
  */
 int main(int argc, char** argv)
 {
+    // srand(static_cast<unsigned int>(time(0)));
+
     // What the...?
     // Well, there should probably be a better way of doing this, 
     // but gotta catch those windows-level errors...
-
+    
     __try
     {
         start(argc, argv);

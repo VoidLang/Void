@@ -51,6 +51,12 @@ namespace Void
 
                 else if (command[1] == '2')
                 {
+                    // convert an integer to float
+
+                    if (command == "i2f")
+                    {
+                        stack->floatStack.push(static_cast<float>(stack->intStack.pull()));
+                    }
                 }
 
                 // handle integer management
@@ -65,7 +71,7 @@ namespace Void
 
             else if (c == 'f')
             {
-                handleFloatManagement(command, args, stack, storage, executable);
+                handleFloatManagement(command, args, result, cursor, bytecode.size(), stack, storage, executable);
             }
 
             // handle instance management
@@ -324,6 +330,7 @@ namespace Void
 
             else if (command == "return")
             {
+                cursor = bytecode.size(); // move cursor to the end so the executor loop breaks
             }
 
             // exit program
@@ -332,6 +339,12 @@ namespace Void
             {
             }
 
+            else if (command == "random")
+            {
+                float value = random();
+                stack->floatStack.push(value);
+            }
+            
             cursor++; // move cursor to the next line to continue executing
         }
     }
@@ -637,7 +650,7 @@ namespace Void
     /**
      * Handle float management instructions.
      */
-    void handleFloatManagement(STRING command, LIST args, Stack* stack, Storage* storage, Executable* executable)
+    void handleFloatManagement(STRING command, LIST args, ANY& result, SIZE_T& cursor, SIZE_T length, Stack* stack, Storage* storage, Executable* executable)
     {
         // push a float to the stack
 
@@ -737,6 +750,116 @@ namespace Void
         else if (command == "fstacksize")
         {
             stack->intStack.push(stack->floatStack.size());
+        }
+
+        // handle float to int conversion
+
+        else if (command == "f2i")
+        {
+            stack->intStack.push(static_cast<int>(stack->floatStack.pull()));
+        }
+
+
+
+        // take two floats from the stack, add (a + b) back to it
+
+        else if (command == "fadd")
+        {
+            stack->floatStack.push(stack->floatStack.pull() + stack->floatStack.pull());
+        }
+
+        // take two floats from the stack, add (a - b) back to it
+
+        else if (command == "frem")
+        {
+            float a = stack->floatStack.pull();
+            float b = stack->floatStack.pull();
+            stack->floatStack.push(a - b);
+        }
+
+        // take two floats from the stack, add (a * b) back to it
+
+        else if (command == "fmul")
+        {
+            stack->floatStack.push(stack->floatStack.pull() * stack->floatStack.pull());
+        }
+
+        // take two floats from the stack, add (a * b) back to it
+
+        else if (command == "fdiv")
+        {
+            float a = stack->floatStack.pull();
+            float b = stack->floatStack.pull();
+            stack->floatStack.push(a / b);
+        }
+
+        // take two floats from the stack, add (a % b) back to it
+
+        else if (command == "fmod")
+        {
+            // float a = stack->floatStack.pull();
+            // float b = stack->floatStack.pull();
+            // stack->floatStack.push(a % b);
+            // TODO fmod, https://stackoverflow.com/questions/6102948/why-does-modulus-division-only-work-with-integers
+        }
+
+        // take a float from the stack, add (a + 1) back to it
+
+        else if (command == "finc")
+        {
+            float value = stack->floatStack.pull();
+            stack->floatStack.push(value + 1);
+        }
+
+        // take a float from the stack, add (a - 1) back to it
+
+        else if (command == "fdecr")
+        {
+            float value = stack->floatStack.pull();
+            stack->floatStack.push(value - 1);
+        }
+
+        // take a float from the stack, add (-a) back to it
+
+        else if (command == "fneg")
+        {
+            stack->floatStack.push(-stack->floatStack.pull());
+        }
+
+        // move a float from the stack to the call result
+
+        else if (command == "freturn")
+        {
+            float value = stack->floatStack.pull();
+            result = value;
+            cursor = length; // move cursor to the end so the executor loop breaks
+        }
+
+        // pull a float from the stack
+
+        else if (command == "fpop")
+        {
+            stack->floatStack.pull();
+        }
+
+        // duplicate the float on the stack top
+
+        else if (command == "fdup")
+        {
+            stack->floatStack.append(stack->floatStack.get());
+        }
+
+        // duplicate the float on the stack top X times
+
+        else if (command == "fdup_x")
+        {
+            float value = stack->floatStack.get();
+            int amount = stoi(args[1]);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stack->floatStack.append(value);
+            }
         }
     }
 
@@ -1303,7 +1426,7 @@ namespace Void
 
         else if (command == "nanoTime")
         {
-
+            stack->longStack.push(nanoTime());
         }
     }
 
@@ -1546,9 +1669,16 @@ namespace Void
 
         else if (command == "sprintln")
         {
-
             String* string = dynamic_cast<String*>(stack->instanceStack.pull());
             println(string->value);
+        }
+
+        // set the random generation seed
+
+        else if (command == "seed")
+        {
+            long seed = stack->longStack.pull();
+            srand(static_cast<unsigned int>(seed));
         }
     }
 
@@ -1559,7 +1689,7 @@ namespace Void
     {
         // check if two integers equals (a == b)
 
-        if (command == "ifieq")
+        if (command == "ifieq" || command == "ifi==")
         {
             int a = stack->intStack.pull();
             int b = stack->intStack.pull();
@@ -1579,7 +1709,7 @@ namespace Void
 
         // check if two integers does not equal (a != b)
 
-        else if (command == "ifineq")
+        else if (command == "ifineq" || command == "ifi!=")
         {
             int a = stack->intStack.pull();
             int b = stack->intStack.pull();
@@ -1597,9 +1727,89 @@ namespace Void
             }
         }
 
+        // check if an integer is greater than another
+
+        else if (command == "ifig" || command== "ifi>")
+        {
+            int a = stack->intStack.pull();
+            int b = stack->intStack.pull();
+
+            if (a > b)
+            {
+                try
+                {
+                    cursor = stoi(args[1]);
+                }
+                catch (...)
+                {
+                    cursor = executable->getSection(args[1]);
+                }
+            }
+        }
+
+        // check if an integer is greater than or equal another
+
+        else if (command == "ifige" || command == "ifi>=")
+        {
+            int a = stack->intStack.pull();
+            int b = stack->intStack.pull();
+
+            if (a >= b)
+            {
+                try
+                {
+                    cursor = stoi(args[1]);
+                }
+                catch (...)
+                {
+                    cursor = executable->getSection(args[1]);
+                }
+            }
+        }
+
+        // check if an integer is less than another
+
+        else if (command == "ifil" || command == "ifi<")
+        {
+            int a = stack->intStack.pull();
+            int b = stack->intStack.pull();
+
+            if (a < b)
+            {
+                try
+                {
+                    cursor = stoi(args[1]);
+                }
+                catch (...)
+                {
+                    cursor = executable->getSection(args[1]);
+                }
+            }
+        }
+
+        // check if an integer is less than or equal another
+
+        else if (command == "ifile" || command == "ifi<=")
+        {
+            int a = stack->intStack.pull();
+            int b = stack->intStack.pull();
+
+            if (a <= b)
+            {
+                try
+                {
+                    cursor = stoi(args[1]);
+                }
+                catch (...)
+                {
+                    cursor = executable->getSection(args[1]);
+                }
+            }
+        }
+
         // check if who strings equals
 
-        else if (command == "ifseq")
+        else if (command == "ifseq" || command == "ifs==")
         {
             String* a = dynamic_cast<String*>(stack->instanceStack.pull());
             String* b = dynamic_cast<String*>(stack->instanceStack.pull());
@@ -1617,14 +1827,54 @@ namespace Void
             }
         }
 
+        // check if who strings does not equal
+
+        else if (command == "ifsneq" || command == "ifs!=")
+        {
+            String* a = dynamic_cast<String*>(stack->instanceStack.pull());
+            String* b = dynamic_cast<String*>(stack->instanceStack.pull());
+
+            if (a->value != b->value)
+            {
+                try
+                {
+                    cursor = stoi(args[1]);
+                }
+                catch (...)
+                {
+                    cursor = executable->getSection(args[1]);
+                }
+            }
+        }
+
         // check if two references equals
 
-        else if (command == "ifrefeq")
+        else if (command == "ifrefeq" || command == "ifref==")
         {
             Instance* a = stack->instanceStack.pull();
             Instance* b = stack->instanceStack.pull();
 
             if (a == b)
+            {
+                try
+                {
+                    cursor = stoi(args[1]);
+                }
+                catch (...)
+                {
+                    cursor = executable->getSection(args[1]);
+                }
+            }
+        }
+
+        // check if two refernces does not equal
+
+        else if (command == "ifrefneq" || command == "ifref!=")
+        {
+            Instance* a = stack->instanceStack.pull();
+            Instance* b = stack->instanceStack.pull();
+
+            if (a != b)
             {
                 try
                 {

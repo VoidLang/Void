@@ -234,7 +234,40 @@ namespace Void
             stackSrc->floatStack.push(value);
         }
 
+        // return type is a long
+
+        else if (returnType == "L")
+        {
+            long value = ANY_CAST<LONG>(result);
+            stackSrc->longStack.push(value);
+        }
+
         // TODO support other primitives (double, short, byte, boolean, etc)
+
+        else if (returnType[0] == '[')
+        {
+            Instance* value = ANY_CAST<Instance*>(result);
+
+            // check if the return value is not an array
+
+            if (!instanceof(value, BaseArray))
+            {
+                error("Expected an array, but got: " << value->getType());
+            }
+
+            // get the actual array
+
+            BaseArray* array = dynamic_cast<BaseArray*>(value);
+
+            // check the array type
+
+            if (array->type != returnType.substr(1, returnType.length()))
+            {
+                println("IllegalArgumentException: " << returnType << " expected, but got [" << array->type);
+            }
+
+            stackSrc->instanceStack.push(value);
+        }
 
         // TODO garbage collect
     }

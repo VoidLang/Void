@@ -6,6 +6,8 @@ cbegin
     mmod public static
     mparam [Lvoid.lang.String
     mbegin
+        ; todo support start args
+
         #link command 0
 
         :begin
@@ -36,7 +38,6 @@ cbegin
 
             :quit
                 println "Goodbye"
-                goto end
-        :end
+                return
     mend
 cend
